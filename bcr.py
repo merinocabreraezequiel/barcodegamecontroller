@@ -3,7 +3,24 @@ import win32con
 import win32api
 from time import sleep
 
-hwndMain = win32gui.FindWindow("Notepad", "test: Bloc de notas")
+arraywindowsopen = []
+windowtosend = ""
+
+def winEnumHandler( hwnd, ctx ):
+    if win32gui.IsWindowVisible( hwnd ):
+        windowsopen = win32gui.GetWindowText( hwnd )
+        if windowsopen != "":
+            arraywindowsopen.append(windowsopen)
+            print (len(arraywindowsopen), arraywindowsopen[len(arraywindowsopen)-1])
+
+win32gui.EnumWindows( winEnumHandler, None )
+
+windowselected = input("Select Window ID: ")
+if int(windowselected) < len(arraywindowsopen):
+    print ('Selected Window: ', arraywindowsopen[int(windowselected)-1],'\n')
+    windowtosend = arraywindowsopen[int(windowselected)-1]
+
+hwndMain = win32gui.FindWindow("Notepad", windowtosend)
 hwndChild = win32gui.GetWindow(hwndMain, win32con.GW_CHILD)
 
 while True:
