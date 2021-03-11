@@ -42,6 +42,7 @@ Este proyecto está bajo la Licencia (GPL3) - read the file [LICENSE](LICENSE) p
 ## Thanks to 🎁
 
 * Capitan Sergio Ferreira [Twitch](https://www.twitch.tv/ferreiratv)
+* ASCIITABLE for the git with full table [WEB](http://www.asciitable.com/)
 
 
 
