@@ -11,7 +11,7 @@ usedbarcodes = ""
 
 def createprofile():
     global usedbarcodes
-    if input("Do you whant to use a default profile: ") != "y":
+    if input("Do you want to use a default profile: ") != "y":
         newprofile = "{"
         newControl = newBarcode = addmore = ""
         while addmore != "n":
@@ -23,6 +23,10 @@ def createprofile():
             else:
                 newprofile+="\""+newBarcode+"\":\""+newControl+"\""
         newprofile +="}"
+        if input("Do you want to save it on a file: ") == "y":
+            filenametosave = input("Choose a json profile name: ")
+            with open('profiles/'+filenametosave+'.json', 'w') as outfile:
+                json.dump(newprofile, outfile)
         print (newprofile)
         usedbarcodes = json.loads(newprofile)
     else:
