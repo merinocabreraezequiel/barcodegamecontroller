@@ -7,8 +7,29 @@ from time import sleep
 arraywindowsopen = []
 windowtosend = ""
 hwndChild = ""
-defaultbarcodes = '{ "w":"qL0aX0cP1mC9vQ9w", "a":"nV2pZ0gJ8hN9zX0j", "s":"cR4zK4tX2dZ4sQ9j", "d":"cR4zK4tX2dZ4sQ9j", "_":"aA9iI6yB7bR2pO4j"}'
-usedbarcodes = json.loads(defaultbarcodes)
+usedbarcodes = ""
+
+def createprofile():
+    global usedbarcodes
+    if input("Do you whant to use a default profile: ") != "y":
+        newprofile = "{"
+        newControl = newBarcode = addmore = ""
+        while addmore != "n":
+            newControl = input("Chose a key: ")
+            newBarcode = input("Chose a barcode to asing: ")
+            addmore = input("Add another control (y/n): ")
+            if addmore == "y":
+                newprofile+="\""+newBarcode+"\":\""+newControl+"\","
+            else:
+                newprofile+="\""+newBarcode+"\":\""+newControl+"\""
+        newprofile +="}"
+        print (newprofile)
+        usedbarcodes = json.loads(newprofile)
+    else:
+        defaultbarcodes = '{ "qL0aX0cP1mC9vQ9w":"w", "nV2pZ0gJ8hN9zX0j":"a", "cR4zK4tX2dZ4sQ9j":"s", "cR4zK4tX2dZ4sQ9j":"d", "aA9iI6yB7bR2pO4j":" "}'
+        usedbarcodes = json.loads(defaultbarcodes)
+    
+
 
 def winEnumHandler( hwnd, ctx ):
     if win32gui.IsWindowVisible( hwnd ):
@@ -32,23 +53,13 @@ def run():
     sendControl()
 
 def sendControl():
+    global usedbarcodes
+    global hwndChild
     while True:
         codereaded = input('Enter your input:')
-        if codereaded == usedbarcodes["w"]:
-            temp = win32api.PostMessage(hwndChild, win32con.WM_CHAR, 0x77, 0)
-            print ('w\n')
-        elif codereaded == usedbarcodes["a"]:
-            temp = win32api.PostMessage(hwndChild, win32con.WM_CHAR, 0x61, 0)
-            print ('a\n')
-        elif codereaded == usedbarcodes["s"]:
-            temp = win32api.PostMessage(hwndChild, win32con.WM_CHAR, 0x73, 0)
-            print ('s\n')
-        elif codereaded == usedbarcodes["d"]:
-            temp = win32api.PostMessage(hwndChild, win32con.WM_CHAR, 0x64, 0)
-            print ('d\n')
-        elif codereaded == usedbarcodes["_"]:
-            temp = win32api.PostMessage(hwndChild, win32con.WM_CHAR, 0x20, 0)
-            print ('_\n')
+        if codereaded in usedbarcodes:
+            temp = win32api.PostMessage(hwndChild, win32con.WM_CHAR, int(hex(ord(usedbarcodes[codereaded])), 0), 0)
 
 if __name__ == '__main__':
+    createprofile()
     run()
