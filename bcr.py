@@ -1,6 +1,7 @@
 import win32gui
 import win32con
 import win32api
+import os
 import json
 from time import sleep
 
@@ -24,6 +25,8 @@ def createprofile():
                 newprofile+="\""+newBarcode+"\":\""+newControl+"\""
         newprofile +="}"
         if input("Do you want to save it on a file: ") == "y":
+            if not os.path.exists('profiles'):
+                os.makedirs('profiles')
             filenametosave = input("Choose a json profile name: ")
             with open('profiles/'+filenametosave+'.json', 'w') as outfile:
                 json.dump(newprofile, outfile)
