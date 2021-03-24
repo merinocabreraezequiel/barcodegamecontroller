@@ -12,7 +12,10 @@ The keys assigned are:
 ### Pre-requires 📋
 
 * Windows based PC
-* python 3.7 [Download](https://www.python.org/downloads/release/python-375/)
+* python 3.9 [Download](https://www.python.org/downloads/)
+* dependencies
+** pywin32
+** pygame
 
 
 ### Instalation 🔧

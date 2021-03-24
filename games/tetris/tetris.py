@@ -167,13 +167,13 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
+            if event.key == ord('w'):
                 game.rotate()
-            if event.key == pygame.K_DOWN:
+            if event.key == ord('s'):
                 pressing_down = True
-            if event.key == pygame.K_LEFT:
+            if event.key == ord('a'):
                 game.go_side(-1)
-            if event.key == pygame.K_RIGHT:
+            if event.key == ord('d'):
                 game.go_side(1)
             if event.key == pygame.K_SPACE:
                 game.go_space()
